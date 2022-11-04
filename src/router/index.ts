@@ -5,11 +5,11 @@ import HomeView from "../views/HomeView.vue";
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-  mode: "history",
+  mode: "hash",
   base: import.meta.env.BASE_URL,
   routes: [
     {
-      path: "/",
+      path: "/home",
       name: "home",
       component: HomeView,
     },
@@ -25,3 +25,32 @@ const router = new VueRouter({
 });
 
 export default router;
+
+const routerM = new VueRouter({
+  mode: "hash",
+  base: import.meta.env.BASE_URL,
+  routes: [
+    {
+      path: "/home",
+      name: "home",
+      component: () => import("../../mobile/home.vue"),
+    },
+    {
+      path: "/about",
+      name: "about",
+      component: () => import("../../mobile/about.vue"),
+    },
+  ],
+});
+
+export { routerM };
+
+router.beforeEach((to, from, next) => {
+  window.postMessage({ path: to.path }, "*");
+  document
+    .querySelector("iframe")
+    ?.contentWindow?.postMessage({ path: to.path }, "*");
+
+  next();
+  // ...
+});

@@ -1,9 +1,12 @@
 import { createPinia, PiniaVuePlugin } from "pinia";
 import Vue from "vue";
-import App from "./App.vue";
+// import Vue from "vue/dist/vue.js";
+import App from "./App2.vue";
 import router from "./router";
 
-import "./assets/main.css";
+// import "./assets/main.css";
+
+// Vue.config.productionTip = false;
 
 Vue.use(PiniaVuePlugin);
 
